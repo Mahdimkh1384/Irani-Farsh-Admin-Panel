@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    @font-face {
+        font-family: Rokh;
+        src: url("./../public/fonts/Dirooz.ttf");
+    }
+
+    body {
+        font-family: Rokh;
+    }
+}
+
+@theme {
+    --color-primary: #080317;
+    --breakpoint-sm: 320px
+}
+
+@layer components{
+    .active{
+        @apply rounded-r-[25px] bg-[#6b559a]
+    }
+    .btn{
+        @apply border p-2 border-neutral-500 rounded-[10px] cursor-pointer
+    }
+}
