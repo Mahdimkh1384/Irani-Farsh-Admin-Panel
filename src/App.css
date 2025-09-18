@@ -22,6 +22,9 @@
     .active{
         @apply rounded-r-[25px] bg-[#6b559a]
     }
+    .menu{
+        @apply hover:bg-[#6b559a] rounded-r-[25px] transition-colors
+    }
     .btn{
         @apply border p-2 border-neutral-500 rounded-[10px] cursor-pointer
     }

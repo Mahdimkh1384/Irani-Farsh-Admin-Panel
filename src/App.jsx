@@ -12,7 +12,7 @@ function App() {
     <>
       <div>
         <Sidebar />
-        <div className='mr-[370px] ml-16'>
+        <div className='lg:mr-[370px] lg:ml-16 sm:px-2.5 lg:p-0'>
           <Header />
           {router}
         </div>
