@@ -57,7 +57,7 @@ export default function Header() {
                     <button className='btn hover:bg-neutral-200 transition-colors'>
                         <IoMdNotificationsOutline />
                     </button>
-                    <button className='btn hover:bg-neutral-200 transition-colors' onClick={() => {
+                    <button className='btn hover:bg-neutral-200 transition-all' onClick={() => {
                         setIsDarkTheme(prev => !prev)
                         localStorage.setItem("theme", !isDarkTheme)
                     }}>

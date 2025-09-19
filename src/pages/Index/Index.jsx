@@ -3,7 +3,8 @@ import InformationBox from '../../Components/InformationBox/InformationBox'
 import { BiDollar } from "react-icons/bi";
 import { HiUsers } from "react-icons/hi2";
 import { FaCartShopping, FaListOl } from "react-icons/fa6";
-
+import Chart from '../../Components/Chart/Chart';
+import XAxisData from '../../Data';
 
 export default function Index() {
 
@@ -21,6 +22,7 @@ export default function Index() {
                     <InformationBox key={info.id} {...info} />
                 ))}
             </div>
+            <Chart grid title ="نمودار درآمد های یک سال گذشته" data={XAxisData} dataKey="sale" />
         </>
     )
 }
