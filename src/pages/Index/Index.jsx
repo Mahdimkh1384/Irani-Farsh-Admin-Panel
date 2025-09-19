@@ -16,7 +16,7 @@ export default function Index() {
 
     return (
         <>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center flex-wrap lg:gap-0 sm:gap-y-3.5 justify-between'>
                 {information.map(info => (
                     <InformationBox key={info.id} {...info} />
                 ))}
