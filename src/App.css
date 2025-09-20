@@ -32,4 +32,7 @@
     .swal-footer{
         @apply flex justify-center
     }
+    .swal-content__input{
+        @apply mt-2
+    }
 }
