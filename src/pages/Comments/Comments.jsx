@@ -46,7 +46,6 @@ export default function CommentsPanel() {
           title: "تایید کامنت",
           text: "کامنت با موفقیت تایید شد",
           icon: "success",
-          showCancelButton: true,
           confirmButtonText: "باشه",
         })
       }
