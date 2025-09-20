@@ -7,10 +7,6 @@ export default function Categories() {
         { id: 1, title: "فرش های ماشینی", href: "/kir" },
         { id: 2, title: "فرش های جدید", href: "/kir" },
         { id: 3, title: "فرش های دستبافت", href: "/kir" },
-        { id: 4, title: "فرش های دستبافت", href: "/kir" },
-        { id: 5, title: "فرش های دستبافت", href: "/kir" },
-        { id: 6, title: "فرش های دستبافت", href: "/kir" },
-        { id: 7, title: "فرش های دستبافت", href: "/kir" },
     ]
 
     const [allCategories, setAllCategories] = useState(categories)
@@ -78,7 +74,7 @@ export default function Categories() {
                 <div className='flex flex-wrap gap-4'>
                     {/* map 👇 */}
                     {allCategories.map(category => (
-                        <div key={category.id} className='w-[49%] h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
+                        <div key={category.id} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
                             <h3>{category.title}</h3>
                             <div className='flex gap-x-2.5'>
                                 <button className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors' onClick={() => editCategory(category.id , category.title , category.href)}>ویرایش</button>
