@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import swal from 'sweetalert';
+import Swal from "sweetalert2";
 
 const sampleComments = [
   {
@@ -31,34 +31,45 @@ export default function CommentsPanel() {
   const [comments, setComments] = useState(sampleComments);
 
   const handleApprove = (id) => {
-    swal({
-      title: "آیا از تایید کامنت اطمینان دارید؟",
+    Swal.fire({
+      title: "تایید کامنت",
+      text: "آیا از تایید کامنت اطمینان دارید ؟",
       icon: "warning",
-      buttons: ["لغو", "تایید"]
+      showCancelButton: true,
+      confirmButtonText: "بله",
+      cancelButtonText: "انصراف",
+      confirmButtonColor: "#9333ea",
     }).then(result => {
-      if (result) {
+      if (result.isConfirmed) {
         setComments(comments.filter((c) => c.id !== id))
-        swal({
-          title: "کامنت با موفقیت تایید شد",
+        Swal.fire({
+          title: "تایید کامنت",
+          text: "کامنت با موفقیت تایید شد",
           icon: "success",
-          buttons: "باشه"
+          showCancelButton: true,
+          confirmButtonText: "باشه",
         })
       }
     })
   };
 
   const handleDelete = (id) => {
-    swal({
-      title: "آیا از حذف کامنت اطمینان دارید؟",
+    Swal.fire({
+      title: "حذف کامنت",
+      text: "آیا از حذف کامنت اطمینان دارید ؟",
       icon: "warning",
-      buttons: ["لغو", "تایید"]
+      showCancelButton: true,
+      confirmButtonText: "بله",
+      cancelButtonText: "انصراف",
+      confirmButtonColor: "#e11d48",
     }).then(result => {
-      if (result) {
+      if (result.isConfirmed) {
         setComments(comments.filter((c) => c.id !== id))
-        swal({
-          title: "کامنت با موفقیت حذف شد",
+        Swal.fire({
+          title: "حذف کامنت",
+          text: "کامنت با موفقیت حذف شد",
           icon: "success",
-          buttons: "باشه"
+          confirmButtonText: "باشه",
         })
       }
     })
