@@ -15,6 +15,7 @@
 
 @theme {
     --color-primary: #080317;
+    --color-secondary : #6b559a;
     --breakpoint-sm: 320px
 }
 
