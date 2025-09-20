@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import swal from 'sweetalert';
 
 const sampleComments = [
   {
@@ -31,18 +31,41 @@ export default function CommentsPanel() {
   const [comments, setComments] = useState(sampleComments);
 
   const handleApprove = (id) => {
-    setComments(comments.filter((c) => c.id !== id));
-    toast.success("کامنت تایید شد ✅");
+    swal({
+      title: "آیا از تایید کامنت اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "تایید"]
+    }).then(result => {
+      if (result) {
+        setComments(comments.filter((c) => c.id !== id))
+        swal({
+          title: "کامنت با موفقیت تایید شد",
+          icon: "success",
+          buttons: "باشه"
+        })
+      }
+    })
   };
 
   const handleDelete = (id) => {
-    setComments(comments.filter((c) => c.id !== id));
-    toast.error("کامنت حذف شد ❌");
+    swal({
+      title: "آیا از حذف کامنت اطمینان دارید؟",
+      icon: "warning",
+      buttons: ["لغو", "تایید"]
+    }).then(result => {
+      if (result) {
+        setComments(comments.filter((c) => c.id !== id))
+        swal({
+          title: "کامنت با موفقیت حذف شد",
+          icon: "success",
+          buttons: "باشه"
+        })
+      }
+    })
   };
 
   return (
-    <div className="p-6 bg-white min-h-screen">
-      <Toaster position="top-center" reverseOrder={false} />
+    <div className="mt-4 bg-white min-h-screen">
       <h1 className="text-2xl font-bold text-purple-600 mb-6">
         مدیریت کامنت‌ها
       </h1>
@@ -75,13 +98,13 @@ export default function CommentsPanel() {
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => handleApprove(comment.id)}
-                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-xl"
+                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-xl cursor-pointer"
               >
                 تایید
               </button>
               <button
                 onClick={() => handleDelete(comment.id)}
-                className="border border-purple-400 text-purple-500 hover:bg-purple-50 px-4 py-2 rounded-xl"
+                className="border border-purple-400 text-purple-500 hover:bg-purple-50 px-4 py-2 rounded-xl cursor-pointer"
               >
                 حذف
               </button>

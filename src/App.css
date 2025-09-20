@@ -29,4 +29,7 @@
     .btn{
         @apply border p-2 border-neutral-500 rounded-[10px] cursor-pointer
     }
+    .swal-footer{
+        @apply flex justify-center
+    }
 }
