@@ -73,7 +73,7 @@ export default function Categories() {
                     <input type="text" value={href} className='w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setHref(e.target.value)} placeholder='آدرس دسته بندی' />
                 </div>
                 <div className='flex justify-end'>
-                    <button className='text-white bg-purple-500 hover:bg-purple-600 w-[100px] h-[40px] rounded-[10px] cursor-pointer transition-colors'>افزودن</button>
+                    <button className='text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>افزودن</button>
                 </div>
             </div>
             {/* ==================================== category list ===================================== */}

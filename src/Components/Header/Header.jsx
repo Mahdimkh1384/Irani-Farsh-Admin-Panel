@@ -44,7 +44,7 @@ export default function Header() {
 
     return (
         <>
-            {isShowMobileSidebar && <div ref={menuRef}><MobileSidebar /></div>}
+            {isShowMobileSidebar && <div className='fixed z-50' ref={menuRef}><MobileSidebar /></div>}
             <div className='mt-4 font-bold text-2xl flex justify-between items-center'>
                 <div className='flex items-center gap-x-3'>
                     <button className='btn lg:hidden sm:inline' onClick={() => setIsShowMobileSidebar(prev => !prev)}>

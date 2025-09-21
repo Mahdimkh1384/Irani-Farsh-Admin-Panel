@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
     return (
-        <div className=' fixed top-0 right-0 w-[70%] h-screen bg-primary text-2xl rounded-l-[15px] z-50'>
+        <div className=' fixed top-0 right-0 w-[70%] h-screen bg-primary text-2xl rounded-l-[15px] '>
             <div className='flex flex-col items-center gap-1.5 justify-center p-2.5 text-white'>
                 <img src="/images/userIcon.jpg" className='size-30 rounded-[50%]' alt="profile" />
                 <p>مهدی مرامی</p>
