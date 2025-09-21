@@ -120,7 +120,7 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="p-6 bg-white min-h-screen">
+    <div className="bg-white min-h-screen">
       <h1 className="text-2xl font-bold text-purple-600 mb-6">
         {editingProduct ? "ویرایش محصول" : "افزودن محصول جدید"}
       </h1>
