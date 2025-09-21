@@ -66,7 +66,7 @@ export default function Offs() {
             <div className='flex flex-col gap-y-5'>
                 <h1 className='text-2xl text-purple-500'>افزودن تخفیف</h1>
                 <div className='w-full flex gap-2.5 flex-wrap'>
-                    <select onChange={e => setProductID(e.target.value)} className='w-[49%] h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500'>
+                    <select onChange={e => setProductID(e.target.value)} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500'>
                         <option value="-1">محصول مورد نظر را انتخاب کنید</option>
                         {allProducts.map(product => (
                             <option key={product.id} value={product.id}>
@@ -74,10 +74,10 @@ export default function Offs() {
                             </option>
                         ))}
                     </select>
-                    <input type="text" value={offCount} className='w-[49%] h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setOffCount(e.target.value)} placeholder='مقدار تخفیف (درصد)' />
-                    <input type="number" value={offLimit} className='w-[49%] h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setLimit(e.target.value)} placeholder='حداکثر زمان تخفیف (روز)' />
-                    <div className='flex justify-end w-[49%] mt-2.5'>
-                        <button onClick={setOffer} className='text-white bg-purple-500 hover:bg-purple-600 w-[100px] h-[40px] rounded-[10px] cursor-pointer transition-colors'>افزودن</button>
+                    <input type="text" value={offCount} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setOffCount(e.target.value)} placeholder='مقدار تخفیف (درصد)' />
+                    <input type="number" value={offLimit} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setLimit(e.target.value)} placeholder='حداکثر زمان تخفیف (روز)' />
+                    <div className='flex lg:justify-end sm:justify-center lg:w-[49%] sm:w-full mt-2.5'>
+                        <button onClick={setOffer} className='text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>افزودن</button>
                     </div>
                 </div>
             </div>
@@ -91,8 +91,8 @@ export default function Offs() {
                         <p>30%</p>
                         <p>2 روز</p>
                         <div className='flex gap-x-2.5'>
-                            <button className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors' >ویرایش</button>
-                            <button className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors' onClick={deleteOff}>حذف</button>
+                            <button className='lg:w-[80px] sm:w-[60px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors' >ویرایش</button>
+                            <button className='lg:w-[80px] sm:w-[60px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors' onClick={deleteOff}>حذف</button>
                         </div>
                     </div>
                 </div>
