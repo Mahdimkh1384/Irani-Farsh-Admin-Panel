@@ -13,12 +13,16 @@ export default function Categories() {
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(true)
     const [isCategoryAdd, setIsCategoryAdd] = useState(false)
+    const [isDataLoad, setIsDataLoad] = useState(false)
+
 
     const getCategories = async () => {
         try {
             setLoading(true)
             const res = await axios.get("https://backend.sajlab.ir/api/categories")
             setAllCategories(res.data.data)
+            console.log(res.data.data);
+            
         } catch (err) {
             console.log(err);
         } finally {
@@ -35,7 +39,7 @@ export default function Categories() {
         setSlug('/categories')
         setImage(null)
     }
-
+    
     const addCategory = async () => {
 
         setIsCategoryAdd(true)
@@ -75,7 +79,7 @@ export default function Categories() {
     }
 
     const editCategory = (id, title, slug, image) => {
-        console.log(title);
+        setIsDataLoad(true)
 
         Swal.fire({
             icon: "info",
@@ -92,8 +96,8 @@ export default function Categories() {
             preConfirm: () => {
                 const input1 = document.getElementById('swal-input1').value
                 const input2 = document.getElementById('swal-input2').value
-                const input3 = document.getElementById('swal-input3').value
-                if (!input1 || !input2 || input3) {
+                const input3 = document.getElementById('swal-input3').files[0] || image
+                if (!input1 || !input2 || !input3) {
                     Swal.showValidationMessage('هر سه ورودی لازم است')
                 }
                 return { input1, input2, input3 }
@@ -113,6 +117,7 @@ export default function Categories() {
                     }
                 })
                 if (res.status === 200) {
+                    setIsDataLoad(false)
                     getCategories()
                     Swal.fire({
                         title: "ویرایش دسته بندی",
@@ -126,6 +131,8 @@ export default function Categories() {
     }
 
     const deleteCategory = (id) => {
+        setIsDataLoad(true)
+
         Swal.fire({
             title: "حذف دسته بندی",
             text: "آیا از حذف دسته بندی اطمینان دارید ؟",
@@ -138,6 +145,7 @@ export default function Categories() {
             if (result.isConfirmed) {
                 const res = await axios.delete(`https://backend.sajlab.ir/api/categories/${id}`)
                 if (res.status === 200) {
+                    setIsDataLoad(false)
                     getCategories()
                     Swal.fire({
                         title: "حذف دسته بندی",
@@ -184,8 +192,8 @@ export default function Categories() {
                         <div key={category.id} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
                             <h3>{category.title}</h3>
                             <div className='flex gap-x-2.5'>
-                                <button className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
-                                <button className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors' onClick={() => deleteCategory(category.id)}>حذف</button>
+                                <button disabled = {isDataLoad} className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors disabled:bg-purple-400' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
+                                <button disabled = {isDataLoad} className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors disabled:bg-purple-50 disabled:text-purple-400' onClick={() => deleteCategory(category.id)}>حذف</button>
                             </div>
                         </div>
                     ))}
