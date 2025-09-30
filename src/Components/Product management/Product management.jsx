@@ -1,4 +1,50 @@
 import React from "react";
+const getAttributeValue = (product, key) => {
+    let attributesArray = [];
+    
+    if (typeof product.attributes === 'string') {
+        try {
+            attributesArray = JSON.parse(product.attributes);
+        } catch (e) {
+            return "نامشخص";
+        }
+    } else if (Array.isArray(product.attributes)) {
+        attributesArray = product.attributes;
+    } else {
+        return "نامشخص";
+    }
+
+    const attribute = attributesArray.find(attr => attr.key === key);
+    return attribute ? attribute.value : "نامشخص";
+};
+const getImageUrl = (product) => {
+
+  const BASE_IMAGE_URL = 'https://backend.sajlab.ir/uploads/products/'; 
+  
+  let imageArray = [];
+  if (typeof product.images === 'string') {
+      try {
+          imageArray = JSON.parse(product.images);
+      } catch (e) {
+          return "https://via.placeholder.com/200";
+      }
+  } else if (Array.isArray(product.images)) {
+      imageArray = product.images;
+  }
+
+  if (imageArray && imageArray.length > 0) {
+      const firstImage = imageArray[0];
+      if (typeof firstImage === 'string') {
+          return BASE_IMAGE_URL + firstImage;
+      } 
+      if (firstImage instanceof File) {
+          return URL.createObjectURL(firstImage);
+      }
+  }
+  
+  return "https://via.placeholder.com/200";
+};
+
 
 export default function ProductManagement({
   productList,
@@ -9,35 +55,22 @@ export default function ProductManagement({
   handleDelete,
   handleEdit,
 }) {
-  const filteredProducts = productList
+  
+  const safeProductList = Array.isArray(productList) ? productList : [];
+
+  const filteredProducts = safeProductList
     .filter((p) => p.title.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
-      if (sortBy === "priceHigh") return b.price - a.price;
-      if (sortBy === "priceLow") return a.price - b.price;
+      const priceA = Number(a.price);
+      const priceB = Number(b.price);
+      
+      if (sortBy === "priceHigh") return priceB - priceA;
+      if (sortBy === "priceLow") return priceA - priceB;
       return 0;
     });
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="flex items-center mb-6 gap-4">
-        <input
-          type="text"
-          placeholder="جستجو بر اساس عنوان..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex w-[30%] border rounded-lg p-2 placeholder:text-purple-600 border-purple-600"
-        />
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="border rounded-lg p-2"
-        >
-          <option value="">مرتب‌سازی</option>
-          <option value="priceHigh">بیشترین قیمت</option>
-          <option value="priceLow">کمترین قیمت</option>
-        </select>
-      </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredProducts.map((p) => (
           <div
@@ -45,26 +78,24 @@ export default function ProductManagement({
             className="border rounded-xl shadow hover:shadow-lg transition p-3 flex flex-col"
           >
             <img
-              src={
-                p.images[0]
-                  ? URL.createObjectURL(p.images[0])
-                  : "https://via.placeholder.com/200"
-              }
+              src={getImageUrl(p)}
               alt={p.title}
               className="w-full h-40 object-cover rounded-lg mb-3"
             />
+            
             <h2 className="font-bold text-base text-gray-800 truncate">
               {p.title}
             </h2>
             <p className="text-purple-600 font-semibold text-sm">
-              {p.price.toLocaleString()} تومان
+              {Number(p.price).toLocaleString()} تومان
             </p>
             <p className="text-black mt-1">
-              کیفیت: {p.features.quality || "نامشخص"}
+              کیفیت: {getAttributeValue(p, 'quality')}
             </p>
             <p className="text-black">
-              رنگ: {p.features.color || "نامشخص"}
+              رنگ: {getAttributeValue(p, 'color')}
             </p>
+            
             <div className="flex gap-2 mt-3">
               <button
                 onClick={() => handleEdit(p)}
@@ -73,7 +104,7 @@ export default function ProductManagement({
                 ویرایش
               </button>
               <button
-                onClick={() => handleDelete(p.id)}
+                onClick={() => p.id && handleDelete(p.id)}
                 className="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm px-2 py-1 rounded-lg"
               >
                 حذف
