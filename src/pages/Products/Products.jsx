@@ -13,42 +13,34 @@ import PerformanceSelector from "../../Components/PerformanceSelector/Performanc
 import ProductManagement from "../../Components/Product management/Product management";
 
 export default function AddProduct() {
-  // **********************************************
-  // 1. منطق CategorySelectorAxios باید با بقیه AddProduct ادغام شود
-  // **********************************************
-
-  // State های مربوط به دسته‌بندی
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  // خطای املایی: 'eroor' به 'error' اصلاح شد
-  const [error, setError] = useState(null); 
-  
-  // Effect برای واکشی دسته‌بندی‌ها
+  const [error, setError] = useState(null);
   useEffect(() => {
     const API_URL = 'https://backend.sajlab.ir/api/categories';
     const fetchCategories = async () => {
       try {
         const response = await axios.get(API_URL);
-        const data = response.data;
-        if (Array.isArray(data) && data.length > 0) {
-            setCategories(data);
-            setCategory(data[0].id || data[0].name); 
+        const rawData = response.data;
+        const categoriesArray = rawData.data || rawData;
+        console.log("Categories Array to Set:", categoriesArray);
+        if (Array.isArray(categoriesArray) && categoriesArray.length > 0) {
+          setCategories(categoriesArray);
+          setCategory(categoriesArray[0].id || categoriesArray[0].name);
         } else {
-            setCategories([]);
-            setCategory('');
+          setCategories([]);
+          setCategory('');
         }
-
         setLoading(false);
-        
-      } catch (err) { 
+      } catch (err) {
         setError(err.message);
         setLoading(false);
         console.error("Axios fetch error:", err);
       }
     };
     fetchCategories();
-}, []);
+  }, []);
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
   const [size, setSize] = useState("");
@@ -66,11 +58,10 @@ export default function AddProduct() {
   const [productList, setProductList] = useState([]);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
-  
+
   const API_URL = "https://backend.sajlab.ir/api/products";
-  
+
   const fetchProducts = async () => {
-    // ... (منطق fetchProducts مثل قبل)
     try {
       const response = await axios.get(API_URL);
 
@@ -85,7 +76,7 @@ export default function AddProduct() {
       console.error("Error fetching products:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -94,15 +85,11 @@ export default function AddProduct() {
     setImages([]);
     setTitle("");
     setSize("");
-    
-    // نکته: بهتر است از آیدی یا name اولین آیتم categories استفاده شود، نه مقدار ثابت
-    // اگر categories پر شده باشد، می‌توان از آن استفاده کرد.
     if (categories.length > 0) {
-        setCategory(categories[0].id || categories[0].name);
+      setCategory(categories[0].id || categories[0].name);
     } else {
-        setCategory(""); // یا مقدار پیش‌فرض دلخواه
+      setCategory("");
     }
-    
     setFeatures({
       quality: "",
       color: "",
@@ -115,12 +102,9 @@ export default function AddProduct() {
     setPerformance("");
     setPrice("");
   };
-  
-  // ... (منطق handleSubmit، handleDelete، handleEdit مثل قبل)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // ... (ادامه منطق handleSubmit)
-     Swal.fire({
+    Swal.fire({
       title: "آیا مطمئنی؟",
       text: "می‌خوای این محصول اضافه بشه؟",
       icon: "question",
@@ -131,61 +115,56 @@ export default function AddProduct() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-            // ... (بقیه منطق)
-            const attributes = Object.entries(features).map(([key, value]) => ({
-              key,
-              value,
-            }));
+          const attributes = Object.entries(features).map(([key, value]) => ({
+            key,
+            value,
+          }));
 
-            const formData = new FormData();
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("size", size);
+          formData.append("price", price);
+          formData.append("rating", performance);
+          formData.append("categoryId", category);
+          formData.append("attributes", JSON.stringify(attributes));
+          images.forEach((img) => {
+            formData.append("images", img);
+          });
 
-            formData.append("title", title);
-            formData.append("size", size);
-            formData.append("price", price);
-            formData.append("rating", performance);
-            formData.append("category_id", category); // *نکته مهم: اضافه کردن category_id*
-            formData.append("attributes", JSON.stringify(attributes));
-
-            images.forEach((img) => {
-              formData.append("images", img);
-            });
-            
-            await axios.post(API_URL, formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            });
-            Swal.fire("موفقیت 🎉", "محصول با موفقیت اضافه شد", "success");
-            fetchProducts();
-            resetForm();
+          await axios.post(API_URL, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          Swal.fire("موفقیت 🎉", "محصول با موفقیت اضافه شد", "success");
+          fetchProducts();
+          resetForm();
         } catch (error) {
-           console.error("Axios Error Object:", error);
-           let errorMessage = "مشکل ناشناخته در ارسال محصول پیش اومد";
+          console.error("Axios Error Object:", error);
+          let errorMessage = "مشکل ناشناخته در ارسال محصول پیش اومد";
 
-            if (error.response) {
-              console.error("Server Status:", error.response.status);
-              console.error("Server Data:", error.response.data);
+          if (error.response) {
+            console.error("Server Status:", error.response.status);
+            console.error("Server Data:", error.response.data);
 
-              if (error.response.data && error.response.data.message) {
-                errorMessage = error.response.data.message;
-              } else if (error.response.data && error.response.data.error) {
-                // اگر خطای سرور به صورت شیء است، بهتر است آن را رشته کنیم
-                errorMessage = JSON.stringify(error.response.data.error); 
-              } else {
-                errorMessage = `خطای سرور با کد ${error.response.status}`;
-              }
-            } else if (error.request) {
-               errorMessage = "ارتباط با سرور برقرار نشد.";
+            if (error.response.data && error.response.data.message) {
+              errorMessage = error.response.data.message;
+            } else if (error.response.data && error.response.data.error) {
+              errorMessage = JSON.stringify(error.response.data.error);
+            } else {
+              errorMessage = `خطای سرور با کد ${error.response.status}`;
             }
+          } else if (error.request) {
+            errorMessage = "ارتباط با سرور برقرار نشد.";
+          }
 
-            Swal.fire("خطا ❌", errorMessage, "error");
+          Swal.fire("خطا ❌", errorMessage, "error");
         }
       }
     });
   };
-  
+
   const handleDelete = (id) => {
-    // ... (منطق handleDelete مثل قبل)
     Swal.fire({
       title: "حذف محصول",
       text: "آیا مطمئنی می‌خوای این محصول حذف بشه؟",
@@ -207,13 +186,11 @@ export default function AddProduct() {
       }
     });
   };
-  
+
   const handleEdit = (product) => {
-    // ... (منطق handleEdit مثل قبل)
     setTitle(product.title);
     setSize(product.size);
-    // اصلاح: مطمئن شوید که مقدار category از بین categories واکشی شده انتخاب شود
-    setCategory(product.category_id || product.category || categories[0]?.id || categories[0]?.name || ""); 
+    setCategory(product.category_id || product.category || categories[0]?.id || categories[0]?.name || "");
     setImages(product.images);
     const newFeatures = {};
     if (product.attributes) {
@@ -222,18 +199,11 @@ export default function AddProduct() {
       });
     }
     setFeatures({ ...features, ...newFeatures });
-
     setSellers(product.sellers || []);
     setPerformance(product.rating || "");
     setPrice(product.price);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-
-  // **********************************************
-  // 3. JSX نهایی (شامل Select Box)
-  // **********************************************
-  
   return (
     <div className="bg-white min-h-screen">
       <h1 className="text-2xl font-bold text-purple-600 mb-6">
@@ -250,14 +220,8 @@ export default function AddProduct() {
           <label className="block font-semibold text-purple-600 mb-2">
             دسته‌بندی
           </label>
-
-          {/* نمایش وضعیت بارگذاری */}
-          {loading && <p className="text-blue-500">در حال بارگذاری دسته‌بندی‌ها...</p>}
-
-          {/* نمایش وضعیت خطا */}
-          {error && <p className="text-red-500">خطا در دریافت داده: {error}</p>}
-
-          {/* نمایش Select */}
+          {loading && <p className="text-blue-500">در حال کیرگذاری دسته‌بندی‌ها...</p>}
+          {error && <p className="text-red-500">شما کیر شدی  {error}</p>}
           {!loading && !error && (
             <select
               value={category}
@@ -268,10 +232,10 @@ export default function AddProduct() {
 
               {categories.map((cat) => (
                 <option
-                  key={cat.id || cat.name} // کلید یکتا برای React
-                  value={cat.id || cat.name} // مقداری که در State ذخیره می‌شود (آیدی یا نام)
+                  key={cat.id}
+                  value={cat.id}
                 >
-                  {cat.name} {/* متنی که نمایش داده می‌شود */}
+                  {cat.title}
                 </option>
               ))}
             </select>
