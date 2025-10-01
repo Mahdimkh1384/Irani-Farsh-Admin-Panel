@@ -1,7 +1,5 @@
 import React from "react";
 
-// ❌ توجه: تابع getAttributeValue دیگر لازم نیست و حذف می‌شود.
-
 const getImageUrl = (product) => {
     const BASE_IMAGE_URL = 'https://backend.sajlab.ir/uploads/product/';
 
@@ -53,7 +51,6 @@ export default function ProductManagement({
 
     return (
         <div className="max-w-6xl mx-auto p-4">
-            {/* ... نوار جستجو و سورت (بدون تغییر) ... */}
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <div className="w-full sm:w-1/2">
                     <input
@@ -95,18 +92,12 @@ export default function ProductManagement({
                         <p className="text-purple-600 font-semibold text-sm">
                             {Number(p.price).toLocaleString()} تومان
                         </p>
-                        
-                        {/* ✅ دسترسی مستقیم به p.rating (کیفیت) */}
                         <p className="text-black mt-1">
                             کیفیت: {p.rating || "نامشخص"} 
                         </p>
-                        
-                        {/* ✅ دسترسی مستقیم به p.size (سایز) */}
                         <p className="text-black">
                             سایز: {p.size || "نامشخص"}
                         </p>
-                        
-                        {/* ... دکمه‌ها (بدون تغییر) ... */}
                         <div className="flex gap-2 mt-3">
                             <button
                                 onClick={() => handleEdit(p)}
