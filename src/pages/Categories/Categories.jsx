@@ -22,7 +22,7 @@ export default function Categories() {
             const res = await axios.get("https://backend.sajlab.ir/api/categories")
             setAllCategories(res.data.data)
             console.log(res.data.data);
-            
+
         } catch (err) {
             console.log(err);
         } finally {
@@ -39,7 +39,7 @@ export default function Categories() {
         setSlug('/categories')
         setImage(null)
     }
-    
+
     const addCategory = async () => {
 
         setIsCategoryAdd(true)
@@ -127,6 +127,9 @@ export default function Categories() {
                     })
                 }
             }
+            else {
+                setIsDataLoad(false)
+            }
         })
     }
 
@@ -154,6 +157,8 @@ export default function Categories() {
                         confirmButtonText: "باشه",
                     })
                 }
+            } else {
+                setIsDataLoad(false)
             }
         })
     }
@@ -168,7 +173,7 @@ export default function Categories() {
                     <input type="text" value={slug} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setSlug(e.target.value)} placeholder='آدرس دسته بندی' />
                     <input type="file" accept="image/*" className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500 cursor-pointer' onChange={e => setImage(e.target.files[0])} placeholder='عکس دسته بندی' />
                     <div className='flex justify-end lg:w-[49%] sm:w-full mt-2.5'>
-                        <button disabled = {isCategoryAdd} onClick={addCategory} className=' text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>{
+                        <button disabled={isCategoryAdd} onClick={addCategory} className=' text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>{
                             isCategoryAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن"
                         }</button>
                     </div>
@@ -192,8 +197,8 @@ export default function Categories() {
                         <div key={category.id} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
                             <h3>{category.title}</h3>
                             <div className='flex gap-x-2.5'>
-                                <button disabled = {isDataLoad} className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors disabled:bg-purple-400' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
-                                <button disabled = {isDataLoad} className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors disabled:bg-purple-50 disabled:text-purple-400' onClick={() => deleteCategory(category.id)}>حذف</button>
+                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors disabled:bg-purple-400' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
+                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors disabled:bg-purple-50 disabled:text-purple-400' onClick={() => deleteCategory(category.id)}>حذف</button>
                             </div>
                         </div>
                     ))}
