@@ -101,13 +101,13 @@ export default function ProductManagement({
                         <div className="flex gap-2 mt-3">
                             <button
                                 onClick={() => handleEdit(p)}
-                                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm px-2 py-1 rounded-lg"
+                                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-sm px-2 py-1 rounded-lg cursor-pointer"
                             >
                                 ویرایش
                             </button>
                             <button
                                 onClick={() => p.id && handleDelete(p.id)}
-                                className="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm px-2 py-1 rounded-lg"
+                                className="flex-1 bg-red-500 hover:bg-red-600 text-white text-sm px-2 py-1 rounded-lg cursor-pointer"
                             >
                                 حذف
                             </button>

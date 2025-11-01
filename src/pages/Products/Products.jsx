@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+<<<<<<< HEAD
 import axios from "axios";                                         
+=======
+import axios from "axios";
+import { ThreeDot } from 'react-loading-indicators'
+
+
+// این ایمپورت‌ها رو اگه واقعاً لازم نیستند، پاک کنید. (مثل use که یک Hook نیست)
+// import { use } from "react"; 
+>>>>>>> 207f62e64700f08526af458744d24815e9733e37
 
 import ImageUploader from "../../Components/ImageUploader/ImageUploader";
 import InputField from "../../Components/InputField/InputField";
@@ -14,6 +23,7 @@ export default function AddProduct() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const API_URL = 'https://backend.sajlab.ir/api/categories';
     const fetchCategories = async () => {
@@ -55,6 +65,8 @@ export default function AddProduct() {
   const [productList, setProductList] = useState([]);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [isProductAdd, setIsProductAdd] = useState(false)
+
 
   const API_URL = "https://backend.sajlab.ir/api/products";
 
@@ -112,6 +124,7 @@ export default function AddProduct() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setIsProductAdd(true)
           const attributes = Object.entries(features).map(([key, value]) => ({
             key,
             value,
@@ -134,6 +147,7 @@ export default function AddProduct() {
             },
           });
           Swal.fire("موفقیت 🎉", "محصول با موفقیت اضافه شد", "success");
+          setIsProductAdd(false)
           fetchProducts();
           resetForm();
         } catch (error) {
@@ -268,9 +282,10 @@ export default function AddProduct() {
 
         <button
           type="submit"
-          className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl"
+          className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl cursor-pointer"
+          disabled = {isProductAdd}
         >
-          افزودن محصول
+          {isProductAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن محصول "}
         </button>
       </form>
 
