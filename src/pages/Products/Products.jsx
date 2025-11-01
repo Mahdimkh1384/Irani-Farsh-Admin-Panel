@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import axios from "axios";
-
-// این ایمپورت‌ها رو اگه واقعاً لازم نیستند، پاک کنید. (مثل use که یک Hook نیست)
-// import { use } from "react"; 
+import axios from "axios";                                         
 
 import ImageUploader from "../../Components/ImageUploader/ImageUploader";
 import InputField from "../../Components/InputField/InputField";
