@@ -9,7 +9,7 @@ export default function Categories() {
 
     const [allCategories, setAllCategories] = useState([])
     const [title, setTitle] = useState('')
-    const [slug, setSlug] = useState('/categories')
+    const [slug, setSlug] = useState('')
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(true)
     const [isCategoryAdd, setIsCategoryAdd] = useState(false)
