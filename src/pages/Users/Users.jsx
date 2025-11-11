@@ -6,7 +6,6 @@ export default function UsersPage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    // داده‌های نمونه (می‌تونی بعداً از API بیاری)
     setUsers([
       {
         id: 1,
@@ -31,8 +30,6 @@ export default function UsersPage() {
       },
     ]);
   }, []);
-
-  // حذف کاربر با SweetAlert
   const handleDelete = (id) => {
     const user = users.find((u) => u.id === id);
 
@@ -57,8 +54,6 @@ export default function UsersPage() {
       }
     });
   };
-
-  // فیلتر جستجو
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,8 +66,6 @@ export default function UsersPage() {
       <h1 className="text-3xl font-bold text-purple-700 mb-6 text-center">
         کاربران ثبت‌نام‌شده
       </h1>
-
-      {/* باکس جستجو */}
       <div className="max-w-md mx-auto mb-8">
         <input
           type="text"
@@ -82,15 +75,12 @@ export default function UsersPage() {
           className="w-full px-4 py-2 border-2 border-purple-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-right"
         />
       </div>
-
-      {/* کارت کاربران */}
       <div className="flex flex-col gap-6 max-w-4xl mx-auto">
         {filteredUsers.map((user) => (
           <div
             key={user.id}
             className="flex items-center justify-between bg-white border border-purple-200 rounded-2xl shadow-sm hover:shadow-md transition-all p-4"
           >
-            {/* اطلاعات کاربر */}
             <div className="flex items-center gap-4">
               <img
                 src={user.avatar}
@@ -105,8 +95,6 @@ export default function UsersPage() {
                 <p className="text-sm text-gray-600">{user.phone}</p>
               </div>
             </div>
-
-            {/* دکمه حذف */}
             <button
               onClick={() => handleDelete(user.id)}
               className="border border-purple-400 text-purple-600 hover:bg-red-600 hover:border-red-600 hover:text-white text-sm px-4 py-2 rounded-lg transition"
@@ -119,7 +107,7 @@ export default function UsersPage() {
 
       {filteredUsers.length === 0 && (
         <p className="text-center text-gray-500 mt-8">
-          هیچ کاربری یافت نشد 😢
+          هیچ کاربری یافت نشد 
         </p>
       )}
     </div>

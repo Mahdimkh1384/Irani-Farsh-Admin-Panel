@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Swal from "sweetalert2";
-<<<<<<< HEAD
-import axios from "axios";                                         
-=======
-import axios from "axios";
-import { ThreeDot } from 'react-loading-indicators'
-
-
-// این ایمپورت‌ها رو اگه واقعاً لازم نیستند، پاک کنید. (مثل use که یک Hook نیست)
-// import { use } from "react"; 
->>>>>>> 207f62e64700f08526af458744d24815e9733e37
-
+import Swal from "sweetalert2"
+import axios from "axios";   
+import { ThreeDot } from 'react-loading-indicators';
 import ImageUploader from "../../Components/ImageUploader/ImageUploader";
 import InputField from "../../Components/InputField/InputField";
 import FeaturesForm from "../../Components/FeaturesForm/FeaturesForm";
