@@ -72,7 +72,7 @@ export default function Categories() {
             Swal.fire({
                 title: "افزودن دسته بندی",
                 text: "مقادیر را به درستی وارد کنید",
-                icon: "error",
+                icon: "warning",
                 confirmButtonText: "باشه",
             })
         }
@@ -184,7 +184,7 @@ export default function Categories() {
                 <h1 className='text-2xl text-purple-500'>لیست دسته بندی ها</h1>
                 <div className='flex flex-wrap gap-4'>
                     {/* map 👇 */}
-                    {loading && Array(allCategories.length || 4).fill(0).map((item, index) => (
+                    {loading && Array(allCategories.length || 6).fill(0).map((item, index) => (
                         <div key={index} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
                             <Skeleton width={100} height={20} />
                             <div className='flex gap-x-2.5'>
