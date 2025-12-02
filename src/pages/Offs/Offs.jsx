@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import OffDataBox from '../../Components/OffDataBox/OffDataBox'
 import Skeleton from 'react-loading-skeleton'
@@ -14,13 +15,14 @@ export default function Offs() {
     const [offLimit, setOffLimit] = useState(0)
     const [isOffAdd, setIsOffAdd] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [isDataLoad, setIsDataLoad] = useState(false)
+
 
     const getProducts = async () => {
         try {
-            const res = await fetch("https://backend.sajlab.ir/api/products")
-            const data = await res.json()
+            const res = await axios.get("https://backend.sajlab.ir/api/products")
 
-            setAllProducts(data.data)
+            setAllProducts(res.data.data)
         } catch (err) {
             console.log(err);
         }
@@ -28,10 +30,9 @@ export default function Offs() {
 
     const getOffs = async () => {
         try {
-            const res = await fetch("https://backend.sajlab.ir/api/discounts")
-            const data = await res.json()
+            const res = await axios.get("https://backend.sajlab.ir/api/discounts")
 
-            setOffs(data.data.reverse())
+            setOffs(res.data.data.reverse())
             setLoading(false)
 
         } catch (err) {
@@ -84,21 +85,20 @@ export default function Offs() {
                             return;
                         }
 
+                        const data = {
+                            productId: Number(productID),
+                            days: Number(offLimit),
+                            amount: Number(offCount)
+                        }
+
                         setIsOffAdd(true)
-                        const res = await fetch("https://backend.sajlab.ir/api/discounts", {
-                            method: "POST",
+                        const res = await axios.post("https://backend.sajlab.ir/api/discounts", data, {
                             headers: {
                                 "Content-Type": "application/json"
                             },
-                            body: JSON.stringify({
-                                productId: Number(productID),
-                                days: Number(offLimit),
-                                amount: Number(offCount)
-                            })
                         })
-                        const data = await res.json()
 
-                        if (data.success) {
+                        if (res.data.success) {
                             setIsOffAdd(false)
                             emptyInputs()
                             getOffs()
@@ -118,6 +118,8 @@ export default function Offs() {
     }
 
     const deleteOff = (id) => {
+        setIsDataLoad(true)
+
         Swal.fire({
             title: "حذف تخفیف",
             text: "آیا از حذف تخفیف اطمینان دارید ؟",
@@ -129,12 +131,10 @@ export default function Offs() {
         }).then(async result => {
             if (result.isConfirmed) {
 
-                const res = await fetch(`https://backend.sajlab.ir/api/discounts/${id}`, {
-                    method: "DELETE"
-                })
-                const data = await res.json()
+                const res = await axios.delete(`https://backend.sajlab.ir/api/discounts/${id}`)
 
-                if (data.success) {
+                if (res.data.success) {
+                    setIsDataLoad(false)
                     getOffs()
                     Swal.fire({
                         title: "حذف تخفیف",
@@ -143,11 +143,15 @@ export default function Offs() {
                         confirmButtonText: "باشه",
                     })
                 }
+            } else {
+                setIsDataLoad(false)
             }
         })
     }
 
     const editOff = (id, amount, days) => {
+
+        setIsDataLoad(true)
 
         Swal.fire({
             title: 'ویرایش تخفیف',
@@ -172,34 +176,40 @@ export default function Offs() {
             }
         }).then(async result => {
             if (result.isConfirmed) {
-                const { val1, val2 } = result.value;
+                try {
+                    const { val1, val2 } = result.value;
 
-                if (Number(val1) === amount && Number(val2) === days) {
-                    return
-                }
+                    if (Number(val1) === amount && Number(val2) === days) {
+                        return
+                    }
 
-                const res = await fetch(`https://backend.sajlab.ir/api/discounts/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
+                    const data = {
                         amount: Number(val1),
                         days: Number(val2)
-                    })
-                })
+                    }
 
-                const data = await res.json()
-
-                if (data.success) {
-                    getOffs()
-                    Swal.fire({
-                        title: "ویرایش تخفیف",
-                        text: "تخفیف مورد نظر با موفقیت ویرایش شد",
-                        icon: "success",
-                        confirmButtonText: "باشه",
+                    const res = await axios.put(`https://backend.sajlab.ir/api/discounts/${id}`, data, {
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
                     })
+
+                    if (res.data.success) {
+                        setIsDataLoad(false)
+                        getOffs()
+                        Swal.fire({
+                            title: "ویرایش تخفیف",
+                            text: "تخفیف مورد نظر با موفقیت ویرایش شد",
+                            icon: "success",
+                            confirmButtonText: "باشه",
+                        })
+                    }
+                } catch (err) {
+                    console.log(err);
                 }
+
+            } else {
+                setIsDataLoad(false)
             }
         })
     }
@@ -235,19 +245,19 @@ export default function Offs() {
                     {loading ? (
                         Array(4).fill(0).map((item, index) => (
                             <div className='w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
-                                <Skeleton width={250} height={35}/>
-                                <Skeleton width={40} height={35}/>
-                                <Skeleton width={50} height={35}/>
+                                <Skeleton width={250} height={35} />
+                                <Skeleton width={40} height={35} />
+                                <Skeleton width={50} height={35} />
                                 <div className='flex gap-x-2.5'>
-                                    <Skeleton width={80} height={35}/>
-                                    <Skeleton width={80} height={35}/>
+                                    <Skeleton width={80} height={35} />
+                                    <Skeleton width={80} height={35} />
                                 </div>
                             </div>
                         ))
                     ) : (
                         offs.length > 0 ? (
                             offs.map(off => (
-                                <OffDataBox key={off.id} {...off} removeHandler={deleteOff} editHandler={editOff} />
+                                <OffDataBox key={off.id} {...off} removeHandler={deleteOff} editHandler={editOff} isDataLoad={isDataLoad} />
                             ))
                         ) : (
                             <div className='flex w-full h-[30vh] justify-center items-center'>
