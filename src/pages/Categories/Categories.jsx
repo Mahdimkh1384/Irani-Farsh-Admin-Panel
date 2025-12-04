@@ -15,7 +15,6 @@ export default function Categories() {
     const [isCategoryAdd, setIsCategoryAdd] = useState(false)
     const [isDataLoad, setIsDataLoad] = useState(false)
 
-
     const getCategories = async () => {
         try {
             setLoading(true)
