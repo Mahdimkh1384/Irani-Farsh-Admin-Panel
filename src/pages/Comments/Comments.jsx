@@ -22,19 +22,6 @@ export default function CommentsPanel() {
     );
   };
 
-  const getToken = () => {
-    const direct = localStorage.getItem("token") || localStorage.getItem("access") || localStorage.getItem("access_token") || localStorage.getItem("authToken");
-    if (direct) return direct;
-    try {
-      const userRaw = localStorage.getItem("user");
-      if (userRaw) {
-        const user = JSON.parse(userRaw);
-        return user?.token || user?.access || user?.access_token || null;
-      }
-    } catch (e) {
-    }
-    return null;
-  };
 
   const fetchComments = async () => {
     setLoading(true);
@@ -56,7 +43,6 @@ export default function CommentsPanel() {
         }
       }
     } catch (err) {
-      console.error("❌ خطا در دریافت کامنت‌ها:", err);
       Swal.fire("خطا", "دریافت کامنت‌ها با خطا مواجه شد", "error");
     } finally {
       setLoading(false);
@@ -68,37 +54,23 @@ export default function CommentsPanel() {
   }, []);
   const updateCommentResult = async (id, resultValue, actionTitle) => {
     if (!id) {
-      console.error("❌ آی‌دی نامعتبر:", id);
       Swal.fire("خطا", "آی‌دی کامنت معتبر نیست.", "error");
       return;
     }
 
-    const token = getToken();
-    if (!token) {
-      Swal.fire({
-        icon: "warning",
-        title: "نیاز به ورود",
-        text: "توکن یافت نشد. لطفاً وارد شوید.",
-      });
-      return;
-    }
-
-    const url = `${COMMENT_API_ENDPOINT}/${id}/`;
-    console.log("📤 ارسال PUT به:", url, "result:", resultValue);
+    const url = `${COMMENT_API_ENDPOINT}/${id}`;
 
     try {
       const res = await fetch(url, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({ result: String(resultValue) }),
         credentials: "include",
       });
 
       const responseText = await res.text();
-      console.log("📥 پاسخ سرور:", res.status, responseText);
 
       if (!res.ok) {
         throw new Error(`خطا در ${actionTitle} کامنت (${res.status})`);
