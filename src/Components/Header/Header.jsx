@@ -1,15 +1,17 @@
-import React, { useState, useEffect , useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { CiLight } from "react-icons/ci";
 import { IoMoonOutline, IoPowerOutline, IoMenuOutline } from "react-icons/io5";
 import MobileSidebar from "../MobileSidebar/MobileSidebar"
-
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 export default function Header() {
 
     const [isDarkTheme, setIsDarkTheme] = useState(false)
     const [isShowMobileSidebar, setIsShowMobileSidebar] = useState(false)
     const menuRef = useRef(null);
-
+    const navigate = useNavigate()
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "true") setIsDarkTheme(true);
@@ -42,6 +44,12 @@ export default function Header() {
         };
     }, [isShowMobileSidebar]);
 
+    const logout = async () => {
+        const res = await axios.get("https://backend.sajlab.ir/api/logout",{withCredentials: true})
+        if (res.data.success) {
+            navigate("/login");
+        }
+    }
     return (
         <>
             {isShowMobileSidebar && <div className='fixed z-50' ref={menuRef}><MobileSidebar /></div>}
@@ -63,7 +71,7 @@ export default function Header() {
                     }}>
                         {isDarkTheme ? <IoMoonOutline /> : <CiLight />}
                     </button>
-                    <button className='btn hover:bg-red-500 transition-colors hover:text-white'>
+                    <button className='btn hover:bg-red-500 transition-colors hover:text-white' onClick={logout}>
                         <IoPowerOutline />
                     </button>
                 </div>

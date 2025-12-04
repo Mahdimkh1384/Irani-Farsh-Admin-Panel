@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2"
-import axios from "axios";   
+import axios from "axios";
 import { ThreeDot } from 'react-loading-indicators';
 import ImageUploader from "../../Components/ImageUploader/ImageUploader";
 import InputField from "../../Components/InputField/InputField";
@@ -136,6 +136,7 @@ export default function AddProduct() {
             headers: {
               "Content-Type": "multipart/form-data",
             },
+            withCredentials: true,
           });
           Swal.fire("موفقیت 🎉", "محصول با موفقیت اضافه شد", "success");
           setIsProductAdd(false)

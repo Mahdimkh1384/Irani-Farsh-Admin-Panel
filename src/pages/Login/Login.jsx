@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from 'axios';
 
 export default function Login() {
+    const navigate = useNavigate()
+    const admin = Cookies.get("adminName");
+    if (admin) {
+        navigate("/", { replace: true });
+    }
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -19,19 +27,13 @@ export default function Login() {
             return
         }
 
-        const res = await fetch("https://backend.sajlab.ir/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: 'include',
-            body: JSON.stringify({ username, password })
-        })
+        const res = await axios.post("https://backend.sajlab.ir/api/login", { username, password },
+            {
+                withCredentials: true
+            }
+        )
 
-        const data = await res.json()
-
-        console.log(data);
-        
+        const data = res.data
 
         if (data.statusCode === 400) {
             Swal.fire({
@@ -49,6 +51,8 @@ export default function Login() {
                 icon: "success",
                 confirmButtonText: "باشه",
             })
+            navigate("/", { replace: true });
+
         }
     }
 
@@ -56,9 +60,9 @@ export default function Login() {
         <form onSubmit={loginHandler} className='bg-neutral-100 h-screen flex justify-center items-center'>
             <div className='bg-white w-[30%] h-[50%] border-2 border-neutral-600 rounded-[20px] shadow shadow-purple-600 flex flex-col justify-around items-center'>
                 <h1 className='text-3xl font-bold'>ورود</h1>
-                <div className='flex flex-col gap-y-3 w-[80%] '>
+                <div className='flex flex-col gap-y-3 w-[80%] ' dir='ltr'>
                     <input type="text" value={username} className='h-[45px] p-3 border border-neutral-500 rounded-[10px] outline-0 focus:outline focus:outline-purple-600' onChange={e => setUsername(e.target.value)} placeholder='نام کاربری' />
-                    <input type="text" value={password} className='h-[45px] p-3 border border-neutral-500 rounded-[10px] outline-0 focus:outline focus:outline-purple-600' onChange={e => setPassword(e.target.value)} placeholder='رمز عبور' />
+                    <input type="password" value={password} className='h-[45px] p-3 border border-neutral-500 rounded-[10px] outline-0 focus:outline focus:outline-purple-600' onChange={e => setPassword(e.target.value)} placeholder='رمز عبور' />
                 </div>
                 <button type='submit' className='bg-purple-500 hover:bg-purple-600 text-white w-[140px] h-[40px] rounded-[10px] cursor-pointer'>ورود</button>
             </div>

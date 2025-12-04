@@ -18,8 +18,8 @@ export default function Index() {
     return (
         <>
             <div className='flex items-center flex-wrap lg:gap-0 sm:gap-y-3.5 justify-between'>
-                {information.map(info => (
-                    <InformationBox key={info.id} {...info} />
+                {information.map((info,i) => (
+                    <InformationBox key={i} {...info} />
                 ))}
             </div>
             <Chart grid title ="نمودار درآمد های یک سال گذشته" data={XAxisData} dataKey="sale" />

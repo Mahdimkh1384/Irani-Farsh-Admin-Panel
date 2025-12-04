@@ -30,7 +30,7 @@ export default function Offs() {
 
     const getOffs = async () => {
         try {
-            const res = await axios.get("https://backend.sajlab.ir/api/discounts")
+            const res = await axios.get("https://backend.sajlab.ir/api/discounts", { withCredentials: true })
 
             setOffs(res.data.data.reverse())
             setLoading(false)
@@ -96,6 +96,7 @@ export default function Offs() {
                             headers: {
                                 "Content-Type": "application/json"
                             },
+                            withCredentials: true
                         })
 
                         if (res.data.success) {
@@ -131,7 +132,7 @@ export default function Offs() {
         }).then(async result => {
             if (result.isConfirmed) {
 
-                const res = await axios.delete(`https://backend.sajlab.ir/api/discounts/${id}`)
+                const res = await axios.delete(`https://backend.sajlab.ir/api/discounts/${id}`, { withCredentials: true })
 
                 if (res.data.success) {
                     setIsDataLoad(false)
@@ -192,6 +193,7 @@ export default function Offs() {
                         headers: {
                             "Content-Type": "application/json"
                         },
+                        withCredentials: true
                     })
 
                     if (res.data.success) {

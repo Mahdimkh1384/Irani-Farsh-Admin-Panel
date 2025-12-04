@@ -21,7 +21,6 @@ export default function Categories() {
             setLoading(true)
             const res = await axios.get("https://backend.sajlab.ir/api/categories")
             setAllCategories(res.data.data)
-            console.log(res.data.data);
 
         } catch (err) {
             console.log(err);
@@ -53,7 +52,8 @@ export default function Categories() {
             const res = await axios.post("https://backend.sajlab.ir/api/categories", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                }
+                },
+                withCredentials: true
             })
             if (res.status === 201) {
                 setIsCategoryAdd(false)
@@ -114,7 +114,8 @@ export default function Categories() {
                 const res = await axios.put(`https://backend.sajlab.ir/api/categories/${id}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
-                    }
+                    },
+                    withCredentials: true
                 })
                 if (res.status === 200) {
                     setIsDataLoad(false)

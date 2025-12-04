@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -38,11 +39,8 @@ export default function CommentsPanel() {
   const fetchComments = async () => {
     setLoading(true);
     try {
-      const res = await fetch(COMMENT_API_ENDPOINT, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
+      const res = await axios.get(COMMENT_API_ENDPOINT, { withCredentials: true });
+      const data = res.data;
 
       if (data?.data) {
         const pending = data.data.filter(
@@ -96,6 +94,7 @@ export default function CommentsPanel() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ result: String(resultValue) }),
+        credentials: "include",
       });
 
       const responseText = await res.text();
@@ -145,7 +144,6 @@ export default function CommentsPanel() {
       await updateCommentResult(id, 0, "رد");
     }
   };
-  console.log(comments);
 
 
 
@@ -164,7 +162,6 @@ export default function CommentsPanel() {
         {comments.map((comment) => {
           const id = getCommentId(comment);
           const disableActions = !id;
-
           return (
             <div
               key={id ?? Math.random()}
@@ -172,8 +169,8 @@ export default function CommentsPanel() {
             >
               <Link to={`/product/${comment.product?.id}`}>
                 <img
-                  src={comment.product?.image}
-                  alt={comment.product?.name}
+                  src={"https://backend.sajlab.ir/uploads/product/"+comment.product?.images[0]}
+                  alt={comment.product?.title}
                   className="w-20 h-20 rounded-xl border cursor-pointer hover:scale-105 transition"
                 />
               </Link>
@@ -181,7 +178,7 @@ export default function CommentsPanel() {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <img
-                    src={comment.user?.avatar || "/src/image/defult1.jpg"}
+                    src={"https://backend.sajlab.ir/uploads/user/"+comment.user?.profileImage || "/src/image/defult1.jpg"}
                     alt={comment.user?.firstName || "کاربر"}
                     className="w-10 h-10 rounded-full border"
                   />
