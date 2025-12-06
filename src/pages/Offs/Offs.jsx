@@ -254,12 +254,18 @@ export default function Offs() {
                     {loading ? (
                         Array(4).fill(0).map((item, index) => (
                             <div className='w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
-                                <Skeleton width={250} height={35} />
-                                <Skeleton width={40} height={35} />
-                                <Skeleton width={50} height={35} />
+                                <div className='lg:w-[25%] sm:w-[30%] h-[35px]'>
+                                    <Skeleton className='w-full h-full' />
+                                </div>
+                                <div className='lg:w-[3%] sm:w-[10%] h-[35px]'>
+                                    <Skeleton className='w-full h-full' />
+                                </div>
+                                <div className='lg:w-[5%] sm:w-[10%] h-[35px]'>
+                                    <Skeleton className='w-full h-full' />
+                                </div>
                                 <div className='flex gap-x-2.5'>
-                                    <Skeleton width={80} height={35} />
-                                    <Skeleton width={80} height={35} />
+                                    <Skeleton width={70} height={35}/>
+                                    <Skeleton width={70} height={35} />
                                 </div>
                             </div>
                         ))
