@@ -73,7 +73,7 @@ export default function Offs() {
                 if (result.isConfirmed) {
                     try {
 
-                        if (!Number(offCount) || !Number(offLimit) || !Number(productID > 0)) {
+                        if (Number(offCount) <= 0 || Number(offLimit) <= 0 || Number(productID) <= 0) {
                             Swal.fire({
                                 title: "افزودن تخفیف",
                                 text: "لطفا تمامی مقادیر را به درستی وارد کنید",
@@ -111,7 +111,14 @@ export default function Offs() {
                             })
                         }
                     } catch (err) {
-                        console.log(err);
+                        console.log("AXIOS ERROR: ", err.response?.status, err);
+                        setIsOffAdd(false)
+                        Swal.fire({
+                            title: "افزودن تخفیف",
+                            text: "مشکلی در افزودن تخفیف پیش آمده!",
+                            icon: "error",
+                            confirmButtonText: "باشه",
+                        })
                     }
                 }
             })
