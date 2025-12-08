@@ -146,7 +146,7 @@ export default function Categories() {
             confirmButtonColor: "#e11d48",
         }).then(async result => {
             if (result.isConfirmed) {
-                const res = await axios.delete(`https://backend.sajlab.ir/api/categories/${id}`)
+                const res = await axios.delete(`https://backend.sajlab.ir/api/categories/${id}`, { withCredentials: true })
                 if (res.status === 200) {
                     setIsDataLoad(false)
                     getCategories()
