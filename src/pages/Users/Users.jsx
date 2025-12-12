@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-
+import userIcon from "/images/userIcon.jpg";
 export default function UsersPage() {
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState("");
@@ -74,7 +74,7 @@ export default function UsersPage() {
                     >
                         <div className="flex items-center gap-4">
                             <img
-                                src={"https://backend.sajlab.ir/uploads/user/"+user.profileImage}
+                                src={user.profileImage ?"https://backend.sajlab.ir/uploads/user/"+user.profileImage : userIcon}
                                 alt={user.firstName}
                                 className="w-14 h-14 rounded-full object-cover border border-purple-300"
                             />
