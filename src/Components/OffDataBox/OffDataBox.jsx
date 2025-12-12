@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function OffDataBox({ id , product , amount , days , removeHandler , editHandler , isDataLoad}) {
     return (
-        <div  className='w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
+        <div  className='w-full flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
             <h3 className='w-[25%]'>{product.title}</h3>
             <p>{amount}%</p>
             <p>{days} روز</p>
