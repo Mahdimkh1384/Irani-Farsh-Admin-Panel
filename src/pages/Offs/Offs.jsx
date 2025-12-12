@@ -20,7 +20,7 @@ export default function Offs() {
 
     const getProducts = async () => {
         try {
-            const res = await axios.get("https://backend.sajlab.ir/api/products")
+            const res = await axios.get("https://api.iranifarsh.ir/products")
 
             setAllProducts(res.data.data)
         } catch (err) {
@@ -30,7 +30,7 @@ export default function Offs() {
 
     const getOffs = async () => {
         try {
-            const res = await axios.get("https://backend.sajlab.ir/api/discounts", { withCredentials: true })
+            const res = await axios.get("https://api.iranifarsh.ir/discounts", { withCredentials: true })
 
             setOffs(res.data.data.reverse())
             setLoading(false)
@@ -92,7 +92,7 @@ export default function Offs() {
                         }
 
                         setIsOffAdd(true)
-                        const res = await axios.post("https://backend.sajlab.ir/api/discounts", data, {
+                        const res = await axios.post("https://api.iranifarsh.ir/discounts", data, {
                             headers: {
                                 "Content-Type": "application/json"
                             },
@@ -139,7 +139,7 @@ export default function Offs() {
         }).then(async result => {
             if (result.isConfirmed) {
 
-                const res = await axios.delete(`https://backend.sajlab.ir/api/discounts/${id}`, { withCredentials: true })
+                const res = await axios.delete(`https://api.iranifarsh.ir/discounts/${id}`, { withCredentials: true })
 
                 if (res.data.success) {
                     setIsDataLoad(false)
@@ -196,7 +196,7 @@ export default function Offs() {
                         days: Number(val2)
                     }
 
-                    const res = await axios.put(`https://backend.sajlab.ir/api/discounts/${id}`, data, {
+                    const res = await axios.put(`https://api.iranifarsh.ir/discounts/${id}`, data, {
                         headers: {
                             "Content-Type": "application/json"
                         },

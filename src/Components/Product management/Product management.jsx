@@ -1,7 +1,7 @@
 import React from "react";
 
 const getImageUrl = (product) => {
-    const BASE_IMAGE_URL = 'https://backend.sajlab.ir/uploads/product/';
+    const BASE_IMAGE_URL = 'https://api.iranifarsh.ir/uploads/product/';
 
     let imageArray = [];
     if (typeof product.images === 'string') {
@@ -55,7 +55,7 @@ export default function ProductManagement({
                 <div className="w-full sm:w-1/2">
                     <input
                         type="text"
-                        placeholder="جستجو بر اساس نام محصول..." 
+                        placeholder="جستجو بر اساس نام محصول..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="p-2 border border-gray-300 rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 text-right"
@@ -73,7 +73,7 @@ export default function ProductManagement({
                     </select>
                 </div>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredProducts.map((p) => (
                     <div
@@ -85,7 +85,7 @@ export default function ProductManagement({
                             alt={p.title}
                             className="w-full h-40 object-cover rounded-lg mb-3"
                         />
-                        
+
                         <h2 className="font-bold text-base text-gray-800 truncate">
                             {p.title}
                         </h2>
@@ -93,7 +93,7 @@ export default function ProductManagement({
                             {Number(p.price).toLocaleString()} تومان
                         </p>
                         <p className="text-black mt-1">
-                            کیفیت: {p.rating || "نامشخص"} 
+                            کیفیت: {p.rating || "نامشخص"}
                         </p>
                         <p className="text-black">
                             سایز: {p.size || "نامشخص"}

@@ -16,7 +16,7 @@ export default function AddProduct() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const API_URL = 'https://backend.sajlab.ir/api/categories';
+    const API_URL = 'https://api.iranifarsh.ir/categories';
     const fetchCategories = async () => {
       try {
         const response = await axios.get(API_URL);
@@ -59,7 +59,7 @@ export default function AddProduct() {
   const [isProductAdd, setIsProductAdd] = useState(false)
 
 
-  const API_URL = "https://backend.sajlab.ir/api/products";
+  const API_URL = "https://api.iranifarsh.ir/products";
 
   const fetchProducts = async () => {
     try {

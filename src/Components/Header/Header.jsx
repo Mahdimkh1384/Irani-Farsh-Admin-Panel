@@ -45,7 +45,7 @@ export default function Header() {
     }, [isShowMobileSidebar]);
 
     const logout = async () => {
-        const res = await axios.get("https://backend.sajlab.ir/api/logout",{withCredentials: true})
+        const res = await axios.get("https://api.iranifarsh.ir/logout",{withCredentials: true})
         if (res.data.success) {
             navigate("/login");
         }

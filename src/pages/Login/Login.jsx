@@ -33,7 +33,7 @@ export default function Login() {
         }
         try {
             setLoading(true)
-            const res = await axios.post("https://backend.sajlab.ir/api/login", { username, password },
+            const res = await axios.post("https://api.iranifarsh.ir/login", { username, password },
                 {
                     withCredentials: true
                 }
