@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const COMMENT_API_ENDPOINT = "https://api.iranifarsh.ir/comments";
+const COMMENT_API_ENDPOINT = "https://api.iranifarsh.neofy.ir/comments";
 const DEBUG = true;
 
 export default function CommentsPanel() {
@@ -141,7 +141,7 @@ export default function CommentsPanel() {
             >
               <Link to={`/product/${comment.product?.id}`}>
                 <img
-                  src={"https://api.iranifarsh.ir/uploads/product/"+comment.product?.images[0]}
+                  src={"https://api.iranifarsh.neofy.ir/uploads/product/"+comment.product?.images[0]}
                   alt={comment.product?.title}
                   className="w-20 h-20 rounded-xl border cursor-pointer hover:scale-105 transition"
                 />
@@ -150,7 +150,7 @@ export default function CommentsPanel() {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <img
-                    src={"https://api.iranifarsh.ir/uploads/user/"+comment.user?.profileImage || "/src/image/defult1.jpg"}
+                    src={"https://api.iranifarsh.neofy.ir/uploads/user/"+comment.user?.profileImage || "/src/image/defult1.jpg"}
                     alt={comment.user?.firstName || "کاربر"}
                     className="w-10 h-10 rounded-full border"
                   />

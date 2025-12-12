@@ -7,7 +7,7 @@ export default function UsersPage() {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        const API_URL = 'https://api.iranifarsh.ir/users';
+        const API_URL = 'https://api.iranifarsh.neofy.ir/users';
         const fetchUsers = async () => {
             try {
                 const response = await axios.get(API_URL, {
@@ -74,7 +74,7 @@ export default function UsersPage() {
                     >
                         <div className="flex items-center gap-4">
                             <img
-                                src={user.profileImage ?"https://api.iranifarsh.ir/uploads/user/"+user.profileImage : userIcon}
+                                src={user.profileImage ?"https://api.iranifarsh.neofy.ir/uploads/user/"+user.profileImage : userIcon}
                                 alt={user.firstName}
                                 className="w-14 h-14 rounded-full object-cover border border-purple-300"
                             />

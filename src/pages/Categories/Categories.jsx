@@ -18,7 +18,7 @@ export default function Categories() {
     const getCategories = async () => {
         try {
             setLoading(true)
-            const res = await axios.get("https://api.iranifarsh.ir/categories")
+            const res = await axios.get("https://api.iranifarsh.neofy.ir/categories")
             setAllCategories(res.data.data)
 
         } catch (err) {
@@ -48,7 +48,7 @@ export default function Categories() {
         formData.append('image', image)
 
         try {
-            const res = await axios.post("https://api.iranifarsh.ir/categories", formData, {
+            const res = await axios.post("https://api.iranifarsh.neofy.ir/categories", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -110,7 +110,7 @@ export default function Categories() {
                 formData.append("slug", input2)
                 formData.append("image", input3)
 
-                const res = await axios.put(`https://api.iranifarsh.ir/categories/${id}`, formData, {
+                const res = await axios.put(`https://api.iranifarsh.neofy.ir/categories/${id}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     },
@@ -146,7 +146,7 @@ export default function Categories() {
             confirmButtonColor: "#e11d48",
         }).then(async result => {
             if (result.isConfirmed) {
-                const res = await axios.delete(`https://api.iranifarsh.ir/categories/${id}`, { withCredentials: true })
+                const res = await axios.delete(`https://api.iranifarsh.neofy.ir/categories/${id}`, { withCredentials: true })
                 if (res.status === 200) {
                     setIsDataLoad(false)
                     getCategories()

@@ -1,7 +1,7 @@
 import React from "react";
 
 const getImageUrl = (product) => {
-    const BASE_IMAGE_URL = 'https://api.iranifarsh.ir/uploads/product/';
+    const BASE_IMAGE_URL = 'https://api.iranifarsh.neofy.ir/uploads/product/';
 
     let imageArray = [];
     if (typeof product.images === 'string') {
