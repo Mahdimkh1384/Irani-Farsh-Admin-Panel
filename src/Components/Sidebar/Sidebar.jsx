@@ -11,7 +11,7 @@ export default function Sidebar() {
     const admin = Cookies.get("adminName")?.split('.')?.[0];
     const name = decodeURIComponent(admin || "نفوذی خارکصه");
     return (
-        <div className=' fixed top-0 w-[18%] h-screen bg-primary text-2xl rounded-l-[15px] lg:inline sm:hidden'>
+        <div className='fixed top-0 w-[18%] h-screen bg-primary text-2xl rounded-l-[15px] lg:inline sm:hidden'>
             <div className='flex flex-col items-center gap-1.5 justify-center p-2.5 text-white'>
                 <img src="/images/userIcon.jpg" className='size-30 rounded-[50%]' alt="profile" />
                 <p>{name}</p>
@@ -21,23 +21,23 @@ export default function Sidebar() {
                     <IoMdHome />
                     صفحه اصلی
                 </NavLink>
-                <NavLink to="/categories" className='flex gap-x-2 p-3.5 menu '>
+                <NavLink to="/categories" className='flex gap-x-2 p-3.5 menu'>
                     <BiSolidCategory />
                     دسته بندی ها
                 </NavLink>
-                <NavLink to="/products" className='flex gap-x-2 p-3.5 menu '>
+                <NavLink to="/products" className='flex gap-x-2 p-3.5 menu'>
                     <FaClipboardList />
                     محصولات
                 </NavLink>
-                <NavLink to="/users" className='flex gap-x-2 p-3.5 menu '>
+                <NavLink to="/users" className='flex gap-x-2 p-3.5 menu'>
                     <FaUsers />
                     کاربران
                 </NavLink>
-                <NavLink to="/comments" className='flex gap-x-2 p-3.5 menu '>
+                <NavLink to="/comments" className='flex gap-x-2 p-3.5 menu'>
                     <FaComments />
                     کامنت ها
                 </NavLink>
-                <NavLink to="/offs" className='flex gap-x-2 p-3.5 menu '>
+                <NavLink to="/offs" className='flex gap-x-2 p-3.5 menu'>
                     <MdLocalOffer />
                     تخفیفات
                 </NavLink>

@@ -208,88 +208,38 @@ export default function AddProduct() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   return (
-    <div className="bg-white min-h-screen">
-      <h1 className="text-2xl font-bold text-purple-600 mb-6">
-        افزودن محصول جدید
-      </h1>
+    <div className="bg-bg-primary min-h-screen">
+      <h1 className="text-2xl font-bold text-accent mb-6">افزودن محصول جدید</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="grid gap-6 max-w-2xl mx-auto shadow-lg rounded-2xl border border-purple-200 p-6 mb-10"
-      >
+      <form onSubmit={handleSubmit} className="grid gap-6 max-w-2xl mx-auto shadow-lg rounded-2xl border border-border-brand bg-bg-surface p-6 mb-10">
         <ImageUploader images={images} setImages={setImages} />
-
         <div>
-          <label className="block font-semibold text-purple-600 mb-2">
-            دسته‌بندی
-          </label>
-          {loading && <p className="text-blue-500">در حال کیرگذاری دسته‌بندی‌ها...</p>}
-          {error && <p className="text-red-500">شما کیر شدی  {error}</p>}
+          <label className="block font-semibold text-accent mb-2">دسته‌بندی</label>
+          {loading && <p className="text-blue-500">در حال بارگذاری دسته‌بندی‌ها...</p>}
+          {error && <p className="text-red-500">{error}</p>}
           {!loading && !error && (
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full border rounded-lg p-2"
-            >
+            <select value={category} onChange={(e) => setCategory(e.target.value)}
+              className="w-full border border-border-main bg-bg-surface text-text-main rounded-lg p-2">
               {categories.length === 0 && <option value="">بدون دسته‌بندی</option>}
-
               {categories.map((cat) => (
-                <option
-                  key={cat.id}
-                  value={cat.id}
-                >
-                  {cat.title}
-                </option>
+                <option key={cat.id} value={cat.id}>{cat.title}</option>
               ))}
             </select>
           )}
-
         </div>
-
-        <InputField
-          label="تیتر محصول"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="مثلاً فرش ۶ متری ابریشمی"
-        />
-        <InputField
-          label="اندازه فرش"
-          value={size}
-          onChange={(e) => setSize(e.target.value)}
-          placeholder="مثلاً ۳x۲ متر"
-        />
+        <InputField label="تیتر محصول" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="مثلاً فرش ۶ متری ابریشمی" />
+        <InputField label="اندازه فرش" value={size} onChange={(e) => setSize(e.target.value)} placeholder="مثلاً ۳x۲ متر" />
         <FeaturesForm features={features} setFeatures={setFeatures} />
-        {/* <SellerBox sellers={sellers} setSellers={setSellers} /> */}
-        <PerformanceSelector
-          performance={performance}
-          setPerformance={setPerformance}
-        />
-        <InputField
-          label="قیمت (تومان)"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="مثلاً ۲۵۰۰۰۰۰"
-        />
-
-        <button
-          type="submit"
-          className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl cursor-pointer"
-          disabled = {isProductAdd}
-        >
-          {isProductAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن محصول "}
+        <PerformanceSelector performance={performance} setPerformance={setPerformance} />
+        <InputField label="قیمت (تومان)" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="مثلاً ۲۵۰۰۰۰۰" />
+        <button type="submit" disabled={isProductAdd}
+          className="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-xl cursor-pointer disabled:bg-accent-muted">
+          {isProductAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن محصول"}
         </button>
       </form>
 
-      <ProductManagement
-        productList={productList}
-        search={search}
-        setSearch={setSearch}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
+      <ProductManagement productList={productList} search={search} setSearch={setSearch}
+        sortBy={sortBy} setSortBy={setSortBy} handleDelete={handleDelete} handleEdit={handleEdit} />
     </div>
   );
 }

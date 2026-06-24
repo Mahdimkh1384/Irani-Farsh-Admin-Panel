@@ -45,7 +45,7 @@ export default function Header() {
     }, [isShowMobileSidebar]);
 
     const logout = async () => {
-        const res = await axios.get("https://api.iranifarsh.neofy.ir/logout",{withCredentials: true})
+        const res = await axios.get("https://api.iranifarsh.neofy.ir/logout", { withCredentials: true })
         if (res.data.success) {
             navigate("/login");
         }
@@ -58,14 +58,13 @@ export default function Header() {
                     <button className='btn lg:hidden sm:inline' onClick={() => setIsShowMobileSidebar(prev => !prev)}>
                         <IoMenuOutline />
                     </button>
-                    <p>ایرانی فرش</p>
+                    <p className='text-text-main'>ایرانی فرش</p>
                 </div>
-                {/* ========================= left section ========================== */}
-                <div className='flex gap-x-5'>
-                    <button className='btn hover:bg-neutral-200 transition-colors'>
+                <div className='flex gap-x-5 text-text-main'>
+                    <button className='btn hover:bg-bg-secondary transition-colors'>
                         <IoMdNotificationsOutline />
                     </button>
-                    <button className='btn hover:bg-neutral-200 transition-all' onClick={() => {
+                    <button className='btn hover:bg-bg-secondary transition-all' onClick={() => {
                         setIsDarkTheme(prev => !prev)
                         localStorage.setItem("theme", !isDarkTheme)
                     }}>

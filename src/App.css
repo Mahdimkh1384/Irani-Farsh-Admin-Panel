@@ -11,28 +11,83 @@
     body {
         font-family: Rokh;
     }
+
+    /* Light mode defaults */
+    :root {
+        --bg-primary:        #f5f4f8;
+        --bg-secondary:      #f3f0fa;
+        --bg-surface:        #ffffff;
+
+        --text-primary:      #1a1a2e;
+        --text-secondary:    #4b5563;
+        --text-muted:        #9ca3af;
+
+        --border-primary:    #d1d5db;
+        --border-secondary:  #c4b5e8;
+
+        --accent:            #6b559a;
+        --accent-hover:      #5a4585;
+        --accent-muted:      #9d88c0;
+        --accent-light:      #f3f0fa;
+    }
+
+    /* Dark mode overrides */
+    .dark {
+        --bg-primary:        #0f0b1e;
+        --bg-secondary:      #251d40;
+        --bg-surface:        #1a1530;
+
+        --text-primary:      #e8e2f5;
+        --text-secondary:    #b8aed4;
+        --text-muted:        #7c6fa0;
+
+        --border-primary:    #3a2f5e;
+        --border-secondary:  #4e3d7a;
+
+        --accent:            #9d88c0;
+        --accent-hover:      #b5a5d4;
+        --accent-muted:      #5a4585;
+        --accent-light:      #2d1f4e;
+    }
 }
 
 @theme {
-    --color-primary: #080317;
-    --color-secondary : #6b559a;
-    --breakpoint-sm: 320px
+    --color-primary:   #080317;
+    --color-secondary: #6b559a;
+
+    --color-bg-primary:       var(--bg-primary);
+    --color-bg-secondary:     var(--bg-secondary);
+    --color-bg-surface:       var(--bg-surface);
+
+    --color-text-main:        var(--text-primary);
+    --color-text-sub:         var(--text-secondary);
+    --color-text-hint:        var(--text-muted);
+
+    --color-border-main:      var(--border-primary);
+    --color-border-brand:     var(--border-secondary);
+
+    --color-accent:           var(--accent);
+    --color-accent-hover:     var(--accent-hover);
+    --color-accent-muted:     var(--accent-muted);
+    --color-accent-light:     var(--accent-light);
+
+    --breakpoint-sm: 320px;
 }
 
-@layer components{
-    .active{
+@layer components {
+    .active {
         @apply rounded-r-[25px] bg-[#6b559a]
     }
-    .menu{
+    .menu {
         @apply hover:bg-[#6b559a] rounded-r-[25px] transition-colors
     }
-    .btn{
+    .btn {
         @apply border p-2 border-neutral-500 rounded-[10px] cursor-pointer
     }
-    .swal-footer{
+    .swal-footer {
         @apply flex justify-center
     }
-    .swal-content__input{
+    .swal-content__input {
         @apply mt-2
     }
 }

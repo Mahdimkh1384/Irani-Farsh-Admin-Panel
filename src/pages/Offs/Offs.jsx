@@ -225,46 +225,42 @@ export default function Offs() {
 
     return (
         <>
-            {/* ==================================== add offer ===================================== */}
             <div className='flex flex-col gap-y-5'>
-                <h1 className='text-2xl text-purple-500'>افزودن تخفیف</h1>
+                <h1 className='text-2xl text-accent'>افزودن تخفیف</h1>
                 <div className='w-full flex gap-2.5 flex-wrap'>
-                    <select onChange={e => setProductID(e.target.value)} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500'>
+                    <select onChange={e => setProductID(e.target.value)}
+                        className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent'>
                         <option value="-1">محصول مورد نظر را انتخاب کنید</option>
                         {allProducts.map(product => (
-                            <option key={product.id} value={product.id}>
-                                {product.title}
-                            </option>
+                            <option key={product.id} value={product.id}>{product.title}</option>
                         ))}
                     </select>
-                    <input type="number" min={1} value={offCount === 0 ? "" : offCount} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setOffCount(e.target.value)} placeholder='مقدار تخفیف (درصد)' />
-                    <input type="number" min={1} value={offLimit === 0 ? "" : offLimit} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setOffLimit(e.target.value)} placeholder='حداکثر زمان تخفیف (روز)' />
+                    <input type="number" min={1} value={offCount === 0 ? "" : offCount}
+                        className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent'
+                        onChange={e => setOffCount(e.target.value)} placeholder='مقدار تخفیف (درصد)' />
+                    <input type="number" min={1} value={offLimit === 0 ? "" : offLimit}
+                        className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent'
+                        onChange={e => setOffLimit(e.target.value)} placeholder='حداکثر زمان تخفیف (روز)' />
                     <div className='flex lg:justify-end sm:justify-center lg:w-[49%] sm:w-full mt-2.5'>
-                        <button disabled={isOffAdd} onClick={setOffer} className=' text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>{
-                            isOffAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن"
-                        }</button>
+                        <button disabled={isOffAdd} onClick={setOffer}
+                            className='text-white bg-accent hover:bg-accent-hover lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors disabled:bg-accent-muted'>
+                            {isOffAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن"}
+                        </button>
                     </div>
                 </div>
             </div>
-            {/* ==================================== offs list ===================================== */}
+
             <div className='flex flex-col gap-y-5'>
-                <h1 className='text-2xl text-purple-500'>لیست تخفیفات</h1>
+                <h1 className='text-2xl text-accent'>لیست تخفیفات</h1>
                 <div className='flex flex-wrap gap-4'>
-                    {/* map 👇 */}
                     {loading ? (
                         Array(4).fill(0).map((item, index) => (
-                            <div className='w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
-                                <div className='lg:w-[25%] sm:w-[30%] h-[35px]'>
-                                    <Skeleton className='w-full h-full' />
-                                </div>
-                                <div className='lg:w-[3%] sm:w-[10%] h-[35px]'>
-                                    <Skeleton className='w-full h-full' />
-                                </div>
-                                <div className='lg:w-[5%] sm:w-[10%] h-[35px]'>
-                                    <Skeleton className='w-full h-full' />
-                                </div>
+                            <div key={index} className='w-full h-[50px] flex justify-between items-center border border-border-main p-2.5 rounded-[8px]'>
+                                <div className='lg:w-[25%] sm:w-[30%] h-[35px]'><Skeleton className='w-full h-full' /></div>
+                                <div className='lg:w-[3%] sm:w-[10%] h-[35px]'><Skeleton className='w-full h-full' /></div>
+                                <div className='lg:w-[5%] sm:w-[10%] h-[35px]'><Skeleton className='w-full h-full' /></div>
                                 <div className='flex gap-x-2.5'>
-                                    <Skeleton width={70} height={35}/>
+                                    <Skeleton width={70} height={35} />
                                     <Skeleton width={70} height={35} />
                                 </div>
                             </div>

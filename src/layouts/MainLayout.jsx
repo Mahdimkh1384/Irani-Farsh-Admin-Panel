@@ -4,11 +4,11 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
     return (
-        <div>
+        <div className="min-h-screen bg-bg-primary transition-colors">
             <Sidebar />
             <div className="lg:mr-[370px] lg:ml-8 sm:px-2.5 lg:p-0 flex flex-col gap-y-10">
                 <Header />
-                <Outlet /> {/* صفحات داخلی اینجا میان */}
+                <Outlet />
             </div>
         </div>
     );

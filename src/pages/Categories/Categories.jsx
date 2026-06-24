@@ -165,27 +165,27 @@ export default function Categories() {
 
     return (
         <>
-            {/* ==================================== add category ===================================== */}
+            {/* add category */}
             <div className='flex flex-col gap-y-5'>
-                <h1 className='text-2xl text-purple-500'>افزودن دسته بندی</h1>
+                <h1 className='text-2xl text-accent'>افزودن دسته بندی</h1>
                 <div className='w-full flex flex-wrap gap-2.5'>
-                    <input type="text" value={title} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setTitle(e.target.value)} placeholder='عنوان دسته بندی' />
-                    <input type="text" value={slug} className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500' onChange={e => setSlug(e.target.value)} placeholder='آدرس دسته بندی' />
-                    <input type="file" accept="image/*" className='lg:w-[49%] sm:w-full h-[45px] border-2 rounded-[10px] p-2 outline-0 focus:outline focus:outline-purple-500 cursor-pointer' onChange={e => setImage(e.target.files[0])} placeholder='عکس دسته بندی' />
+                    <input type="text" value={title} className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent' onChange={e => setTitle(e.target.value)} placeholder='عنوان دسته بندی' />
+                    <input type="text" value={slug} className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent' onChange={e => setSlug(e.target.value)} placeholder='آدرس دسته بندی' />
+                    <input type="file" accept="image/*" className='lg:w-[49%] sm:w-full h-[45px] border-2 border-border-main bg-bg-surface text-text-main rounded-[10px] p-2 outline-0 focus:outline focus:outline-accent cursor-pointer' onChange={e => setImage(e.target.files[0])} />
                     <div className='flex justify-end lg:w-[49%] sm:w-full mt-2.5'>
-                        <button disabled={isCategoryAdd} onClick={addCategory} className=' text-white bg-purple-500 hover:bg-purple-600 lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors'>{
-                            isCategoryAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن"
-                        }</button>
+                        <button disabled={isCategoryAdd} onClick={addCategory} className='text-white bg-accent hover:bg-accent-hover lg:w-[100px] sm:w-full h-[40px] rounded-[10px] cursor-pointer transition-colors disabled:bg-accent-muted'>
+                            {isCategoryAdd ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "افزودن"}
+                        </button>
                     </div>
                 </div>
             </div>
-            {/* ==================================== category list ===================================== */}
+
+            {/* category list */}
             <div className='flex flex-col gap-y-5'>
-                <h1 className='text-2xl text-purple-500'>لیست دسته بندی ها</h1>
+                <h1 className='text-2xl text-accent'>لیست دسته بندی ها</h1>
                 <div className='flex flex-wrap gap-4'>
-                    {/* map 👇 */}
                     {loading && Array(allCategories.length || 6).fill(0).map((item, index) => (
-                        <div key={index} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
+                        <div key={index} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-border-main p-2.5 rounded-[8px]'>
                             <Skeleton width={100} height={20} />
                             <div className='flex gap-x-2.5'>
                                 <Skeleton width={80} height={35} />
@@ -194,11 +194,11 @@ export default function Categories() {
                         </div>
                     ))}
                     {allCategories.map(category => (
-                        <div key={category.id} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-neutral-700 p-2.5 rounded-[8px]'>
-                            <h3>{category.title}</h3>
+                        <div key={category.id} className='lg:w-[49%] sm:w-full h-[50px] flex justify-between items-center border border-border-main bg-bg-surface p-2.5 rounded-[8px]'>
+                            <h3 className='text-text-main'>{category.title}</h3>
                             <div className='flex gap-x-2.5'>
-                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-purple-500 text-white rounded-[10px] hover:cursor-pointer hover:bg-purple-600 transition-colors disabled:bg-purple-400' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
-                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-white text-purple-500 border border-purple-500 rounded-[10px] hover:cursor-pointer hover:bg-purple-50 transition-colors disabled:bg-purple-50 disabled:text-purple-400' onClick={() => deleteCategory(category.id)}>حذف</button>
+                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-accent text-white rounded-[10px] hover:cursor-pointer hover:bg-accent-hover transition-colors disabled:bg-accent-muted' onClick={() => editCategory(category.id, category.title, category.slug, category.image)}>ویرایش</button>
+                                <button disabled={isDataLoad} className='w-[80px] h-[35px] bg-bg-surface text-accent border border-accent rounded-[10px] hover:cursor-pointer hover:bg-bg-secondary transition-colors disabled:bg-bg-secondary disabled:text-accent-muted' onClick={() => deleteCategory(category.id)}>حذف</button>
                             </div>
                         </div>
                     ))}

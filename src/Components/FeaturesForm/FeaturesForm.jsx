@@ -16,16 +16,11 @@ export default function FeaturesForm({ features, setFeatures }) {
 
   return (
     <div className="grid gap-4">
-      <h2 className="font-semibold text-purple-600">ویژگی‌ها</h2>
+      <h2 className="font-semibold text-accent">ویژگی‌ها</h2>
       {fields.map((f) => (
-        <input
-          key={f.key}
-          type="text"
-          placeholder={f.label}
-          value={features[f.key]}
+        <input key={f.key} type="text" placeholder={f.label} value={features[f.key]}
           onChange={(e) => handleChange(f.key, e.target.value)}
-          className="w-full border rounded-lg p-2"
-        />
+          className="w-full border border-border-main bg-bg-surface text-text-main rounded-lg p-2" />
       ))}
     </div>
   );

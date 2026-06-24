@@ -67,19 +67,25 @@ export default function Login() {
     }
 
     return (
-        <form onSubmit={loginHandler} className='bg-neutral-100 h-screen flex justify-center items-center'>
-            <div className='bg-white lg:w-[30%] sm:w-[90%] h-[50%] border-2 border-neutral-600 rounded-[20px] shadow shadow-purple-600 flex flex-col justify-around items-center'>
-                <h1 className='text-3xl font-bold select-none'>ورود</h1>
-                <div className='flex flex-col gap-y-3 w-[80%] ' dir='ltr'>
-                    <input type="text" value={username} className='h-[45px] p-3 border border-neutral-500 rounded-[10px] outline-0 focus:outline focus:outline-purple-600' onChange={e => setUsername(e.target.value)} placeholder='نام کاربری' />
-                    <div className=' relative'>
-                        <input type={isPasswordShow ? "text" : "password"} value={password} className='h-[45px] w-full p-3 border border-neutral-500 rounded-[10px] outline-0 focus:outline focus:outline-purple-600' onChange={e => setPassword(e.target.value)} placeholder='رمز عبور' />
-                        <div onClick={() => setIsPasswordShow(prev => !prev)} className=' absolute right-3 top-3 cursor-pointer transition-all duration-150 active:scale-95 text-xl text-neutral-600'>
-                            {isPasswordShow ? <FaEye  /> : <FaEyeSlash  />}
+        <form onSubmit={loginHandler} className='bg-bg-primary h-screen flex justify-center items-center'>
+            <div className='bg-bg-surface lg:w-[30%] sm:w-[90%] h-[50%] border-2 border-border-main rounded-[20px] shadow shadow-accent flex flex-col justify-around items-center'>
+                <h1 className='text-3xl font-bold select-none text-text-main'>ورود</h1>
+                <div className='flex flex-col gap-y-3 w-[80%]' dir='ltr'>
+                    <input type="text" value={username}
+                        className='h-[45px] p-3 border border-border-main bg-bg-primary text-text-main rounded-[10px] outline-0 focus:outline focus:outline-accent'
+                        onChange={e => setUsername(e.target.value)} placeholder='نام کاربری' />
+                    <div className='relative'>
+                        <input type={isPasswordShow ? "text" : "password"} value={password}
+                            className='h-[45px] w-full p-3 border border-border-main bg-bg-primary text-text-main rounded-[10px] outline-0 focus:outline focus:outline-accent'
+                            onChange={e => setPassword(e.target.value)} placeholder='رمز عبور' />
+                        <div onClick={() => setIsPasswordShow(prev => !prev)}
+                            className='absolute right-3 top-3 cursor-pointer transition-all duration-150 active:scale-95 text-xl text-text-sub'>
+                            {isPasswordShow ? <FaEye /> : <FaEyeSlash />}
                         </div>
                     </div>
                 </div>
-                <button type='submit' disabled={loading} className='bg-purple-500 hover:bg-purple-600 text-white w-[140px] h-[40px] rounded-[10px] cursor-pointer disabled:bg-purple-400 select-none'>
+                <button type='submit' disabled={loading}
+                    className='bg-accent hover:bg-accent-hover text-white w-[140px] h-[40px] rounded-[10px] cursor-pointer disabled:bg-accent-muted select-none'>
                     {loading ? <ThreeDot color="#ffffff" size="small" text="" textColor="" /> : "ورود"}
                 </button>
             </div>
