@@ -1,0 +1,17 @@
+services:
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: irani-farsh-admin
+    restart: unless-stopped
+    ports:
+      # Host loopback binding per server guide: Project 2 Admin = 3012
+      - "127.0.0.1:${PORT:-3012}:80"
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+    external: true
