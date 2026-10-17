@@ -179,7 +179,9 @@ export default function AddProduct() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`${API_URL}/${id}`);
+          await axios.delete(`${API_URL}/${id}`, {
+            withCredentials: true,
+          });
           setProductList(productList.filter((p) => p.id !== id));
           Swal.fire("حذف شد", "محصول با موفقیت حذف شد", "success");
         } catch (error) {
