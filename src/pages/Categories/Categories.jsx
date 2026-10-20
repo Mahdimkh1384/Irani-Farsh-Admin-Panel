@@ -93,11 +93,12 @@ export default function Categories() {
             confirmButtonText: 'ثبت',
             cancelButtonText: 'انصراف',
             preConfirm: () => {
-                const input1 = document.getElementById('swal-input1').value
-                const input2 = document.getElementById('swal-input2').value
+                const input1 = document.getElementById('swal-input1').value.trim()
+                const input2 = document.getElementById('swal-input2').value.trim()
                 const input3 = document.getElementById('swal-input3').files[0] || image
-                if (!input1 || !input2 || !input3) {
-                    Swal.showValidationMessage('هر سه ورودی لازم است')
+                if (!input1 || !input2) {
+                    Swal.showValidationMessage('عنوان و آدرس دسته بندی الزامی است')
+                    return false
                 }
                 return { input1, input2, input3 }
             }
@@ -108,21 +109,33 @@ export default function Categories() {
                 const formData = new FormData()
                 formData.append("title", input1)
                 formData.append("slug", input2)
-                formData.append("image", input3)
+                if (input3 instanceof File) {
+                    formData.append("image", input3)
+                } else if (input3) {
+                    formData.append("image", input3)
+                }
 
-                const res = await axios.put(`https://api-iranifarsh.neofy.ir/categories/${id}`, formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    },
-                    withCredentials: true
-                })
-                if (res.status === 200) {
+                try {
+                    const res = await axios.put(`https://api-iranifarsh.neofy.ir/categories/${id}`, formData, {
+                        withCredentials: true
+                    })
+                    if (res.status === 200) {
+                        setIsDataLoad(false)
+                        getCategories()
+                        Swal.fire({
+                            title: "ویرایش دسته بندی",
+                            text: "دسته بندی با موفقیت ویرایش شد",
+                            icon: "success",
+                            confirmButtonText: "باشه",
+                        })
+                    }
+                } catch (err) {
                     setIsDataLoad(false)
-                    getCategories()
+                    console.error("Error editing category:", err)
                     Swal.fire({
-                        title: "ویرایش دسته بندی",
-                        text: "دسته بندی با موفقیت ویرایش شد",
-                        icon: "success",
+                        title: "خطا در ویرایش",
+                        text: err.response?.data?.message || "خطایی در ویرایش دسته بندی رخ داد",
+                        icon: "error",
                         confirmButtonText: "باشه",
                     })
                 }
